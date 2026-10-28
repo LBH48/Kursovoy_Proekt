@@ -1,4 +1,4 @@
-[blockscheme (3).drawio](https://github.com/user-attachments/files/34102955/blockscheme.3.drawio)# Мониторинг реактора: температура сырья
+# Мониторинг реактора: температура сырья
 
 ## 📝 Описание проекта
 
