@@ -1,48 +1,80 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define M_PI 3.14159265358979323846
 #include <stdio.h>
 #include <locale.h>
 #include <math.h>
 
-double Q(double X) 
+double Q(double X)
 {
-    if (X < 25) 
+    if (X < 25)
     {
         return 3 * (X - 25) + 10;
     }
-    else if (X <= 45) 
+    else if (X <= 45)
     {
-        return 2 * sqrt(X - 35 + 10) + 45;
+        return 2 * sqrt(X - 25) + 45;
     }
-    else 
+    else
     {
         return (X - 45) * (X - 45) / 4 + 55;
     }
 }
 
-int main() 
+int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    double X;
-    double result;
-    double UCL = 64.32;
+    double X[50], q[50];
+    double sum = 0, sred, med;
+    double a[20], t;
 
-    printf("¬‚Â‰ËÚÂ ÚÂÏÔÂ‡ÚÛÛ Ò˚¸ˇ X (10...70 ∞C): ");
-    scanf("%lf", &X);
-
-    result = Q(X);
-
-    printf("Q(%.2f) = %.4f\n", X, result);
-
-    if (result > UCL) 
+    for (int i = 0; i < 50; i++)
     {
-        printf("¬Õ»Ã¿Õ»≈! œÂ‚˚¯ÂÌ‡ ‚ÂıÌˇˇ ÍÓÌÚÓÎ¸Ì‡ˇ „‡ÌËˆ‡ UCL = %.2f\n", UCL);
+        printf("–í–≤–µ–¥–∏—Ç–µ —Ç–µ–º–ø–µ—Ä–∞—Ç—É—Ä—É –æ—Ç 10 –¥–æ 70: ");
+        scanf("%lf", &X[i]);
+
+        while (X[i] < 10 || X[i] > 70)
+        {
+            printf("–û—à–∏–±–∫–∞. –í–≤–µ–¥–∏—Ç–µ —Ç–µ–º–ø–µ—Ä–∞—Ç—É—Ä—É –æ—Ç 10 –¥–æ 70: ");
+            scanf("%lf", &X[i]);
+        }
+
+        q[i] = Q(X[i]);
+
+        printf("Q = %.2f", q[i]);
+
+        if (q[i] > 64.32)
+            printf(" –ü—Ä–µ–≤—ã—à–µ–Ω–∏–µ UCL");
+        else
+            printf(" –ù–æ—Ä–º–∞");
+
+        printf("\n");
+
+        if (i < 20)
+        {
+            a[i] = q[i];
+            sum = sum + q[i];
+        }
     }
-    else 
+
+    sred = sum / 20;
+
+    for (int i = 0; i < 19; i++)
     {
-        printf("«Ì‡˜ÂÌËÂ Ì‡ıÓ‰ËÚÒˇ ‚ ÔÂ‰ÂÎ‡ı ‚ÂıÌÂÈ ÍÓÌÚÓÎ¸ÌÓÈ „‡ÌËˆ˚.\n");
+        for (int j = 0; j < 19 - i; j++)
+        {
+            if (a[j] > a[j + 1])
+            {
+                t = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = t;
+            }
+        }
     }
+
+    med = (a[9] + a[10]) / 2;
+
+    printf("\n–°—Ä–µ–¥–Ω–µ–µ –∑–Ω–∞—á–µ–Ω–∏–µ: %.2f\n", sred);
+    printf("–ú–µ–¥–∏–∞–Ω–∞: %.2f\n", med);
 
     return 0;
 }
